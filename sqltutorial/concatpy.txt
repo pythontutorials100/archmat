@@ -1,0 +1,384 @@
+import xml.etree.ElementTree as ET
+import csv
+import re
+from html import unescape
+
+# final code that generates triplets from drawio files
+
+def strip_html_tags(text):
+    """Remove HTML tags from a string."""
+    if text:
+        # Unescape HTML entities
+        text = unescape(text)
+        # Remove HTML tags
+        clean = re.compile('<.*?>')
+        return re.sub(clean, '', text)
+    return text
+
+def extract_triplets(filename, output_csv):
+    # Parse the XML file
+    tree = ET.parse(filename)
+    root = tree.getroot()
+
+    # Initialize dictionaries to store nodes and edges
+    nodes = {}
+    edges = []
+    node_types = {}
+
+    # Constants for colors
+    CLASS_FILL_COLOR = '#f0a30a'
+    INDIVIDUAL_FILL_COLOR = '#76608a'
+    LITERAL_STROKE_COLOR = 'none'
+
+    # Define the list of predicates that indicate a literal value
+    literal_predicates = {
+        'has altitude value',
+        'has boolean value',
+        'has date value',
+        'has datetime value',
+        'has decimal value',
+        'has double value',
+        'has integer value',
+        'has latitude value',
+        'has longitude value',
+        'has text value'
+    }
+
+    # Find the 'root' element under 'mxGraphModel'
+    mxGraphModel = root.find('.//mxGraphModel')
+    mxRoot = mxGraphModel.find('root')
+
+    # Build the nodes dictionary and identify node types
+    for mxCell in mxRoot.findall('mxCell'):
+        cell_id = mxCell.get('id')
+        value = mxCell.get('value')
+        parent = mxCell.get('parent')
+        vertex = mxCell.get('vertex')
+        edge = mxCell.get('edge')
+        style = mxCell.get('style')
+
+        # Unescape and strip HTML tags from the value
+        value = strip_html_tags(value)
+
+        # Check if the cell is a node (vertex)
+        if vertex == '1' and edge != '1':
+            # Exclude labels attached to edges
+            parent_is_edge = any(
+                edge_cell.get('id') == parent and edge_cell.get('edge') == '1'
+                for edge_cell in mxRoot.findall('mxCell')
+            )
+            if not parent_is_edge:
+                nodes[cell_id] = value
+
+                # Determine node type based on style
+                node_type = 'Unknown'
+                if style:
+                    style_dict = dict(item.split('=') for item in style.split(';') if '=' in item)
+                    fillColor = style_dict.get('fillColor', '')
+                    strokeColor = style_dict.get('strokeColor', '')
+
+                    if fillColor == CLASS_FILL_COLOR:
+                        node_type = 'Class'
+                    elif fillColor == INDIVIDUAL_FILL_COLOR:
+                        node_type = 'Individual'
+                    elif strokeColor == LITERAL_STROKE_COLOR:
+                        node_type = 'Literal'
+
+                node_types[cell_id] = node_type
+
+    # Build the edges list
+    for mxCell in mxRoot.findall('mxCell'):
+        if mxCell.get('edge') == '1':
+            source = mxCell.get('source')
+            target = mxCell.get('target')
+            predicate = mxCell.get('value')
+
+            # Unescape and strip HTML tags from the predicate
+            predicate = strip_html_tags(predicate)
+
+            # If the edge has no direct value, check for labels attached to it
+            if not predicate:
+                predicate = next(
+                    (strip_html_tags(child.get('value')) for child in mxRoot.findall('mxCell')
+                     if child.get('parent') == mxCell.get('id') and child.get('vertex') == '1'),
+                    ''
+                )
+
+            edges.append({
+                'source': source,
+                'target': target,
+                'predicate': predicate
+            })
+
+    # Create a mapping from node IDs to edges for quick lookup
+    source_edges = {}
+    for edge in edges:
+        source_edges.setdefault(edge['source'], []).append(edge)
+
+    # Ensure 'rdf:type' relations for individuals
+    for node_id, node_value in nodes.items():
+        if node_types.get(node_id) == 'Individual':
+            # Check if there is an 'rdf:type' relation
+            has_rdf_type = any(
+                edge for edge in source_edges.get(node_id, [])
+                if edge['predicate'] == 'rdf:type'
+            )
+            if not has_rdf_type:
+                # Create a blank 'rdf:type' relation
+                edges.append({
+                    'source': node_id,
+                    'predicate': 'rdf:type',
+                    'target': ''
+                })
+
+    # Ensure 'subclass of' relations for classes
+    for node_id, node_value in nodes.items():
+        if node_types.get(node_id) == 'Class':
+            # Check if there is a 'subclass of' relation
+            has_subclass_of = any(
+                edge for edge in source_edges.get(node_id, [])
+                if edge['predicate'] == 'subclass of'
+            )
+            if not has_subclass_of:
+                # Create a blank 'subclass of' relation
+                edges.append({
+                    'source': node_id,
+                    'predicate': 'subclass of',
+                    'target': ''
+                })
+
+    # Prepare data for CSV
+    individuals_triplets = []
+    literals_triplets = []
+    rdf_type_triplets = []
+    subclass_of_triplets = []
+
+    for edge in edges:
+        source_label = nodes.get(edge['source'], edge['source'])
+        predicate = edge['predicate']
+        target_label = nodes.get(edge['target'], edge['target'])
+
+        source_type = node_types.get(edge['source'], 'Unknown')
+        target_type = node_types.get(edge['target'], 'Unknown')
+
+        triplet = [source_label, predicate, target_label]
+
+        if predicate == 'rdf:type':
+            rdf_type_triplets.append(triplet)
+        elif predicate == 'subclass of':
+            subclass_of_triplets.append(triplet)
+        elif predicate in literal_predicates:
+            literals_triplets.append(triplet)
+        elif source_type == 'Individual' and predicate not in ['rdf:type', 'subclass of']:
+            individuals_triplets.append(triplet)
+        # You can add an else clause to handle other triplets if needed
+
+    # Write to CSV file in the desired order
+    with open(output_csv, 'w', newline='', encoding='utf-8') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(['Subject', 'Predicate', 'Object'])
+
+        # Write triplets in the specified order
+        for triplet in individuals_triplets:
+            csvwriter.writerow(triplet)
+        for triplet in literals_triplets:
+            csvwriter.writerow(triplet)
+        for triplet in rdf_type_triplets:
+            csvwriter.writerow(triplet)
+        for triplet in subclass_of_triplets:
+            csvwriter.writerow(triplet)
+
+    print(f"Triplets have been written to {output_csv}")
+
+# Example usage
+extract_triplets('4.drawio', 'output_triplets_4.csv')
+
+
+###################
+
+
+import csv
+
+def read_base_triplets(filename):
+    """Reads the base triplets from a CSV file."""
+    base_triplets = []
+    with open(filename, 'r', encoding='utf-8') as csvfile:
+        reader = csv.reader(csvfile)
+        base_header = next(reader)  # Skip header
+        for row in reader:
+            if len(row) >= 3:
+                base_triplets.append((row[0].strip(), row[1].strip(), row[2].strip()))
+    return base_triplets
+
+def read_individuals_data(filename):
+    """Reads the individuals data from a CSV file."""
+    individuals_data = []
+    with open(filename, 'r', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            individuals_data.append(row)
+    return individuals_data
+
+def generate_new_triplets(individuals_data, starting_index=2):
+    """Generates new triplets based on individuals data."""
+    new_triplets = []
+    entity_counter = starting_index  # Starting index for new entities
+    for row in individuals_data:
+        # Extract values from the row
+        operator = row.get('OPERATOR', '').strip()
+        ac_platform = row.get('AC_PLATFORM', '').strip()
+        engine_master_series = row.get('ENGINE_MASTER_SERIES', '').strip()
+        part_number = row.get('P/N', '').strip()
+        bu = row.get('BU', '').strip()
+        year = row.get('YEAR', '').strip()
+        revenue_gap = row.get('REVENUE_GAP', '').strip()
+        revenue_gap_stat_sig = row.get('REVENUE_GAP__STATISTICALLY_SIGNIFICANT_', '').strip()
+
+        # Generate unique identifiers
+        customer_id = f"customer_{entity_counter}"
+        ibe_cust_id = f"ibe_cust_{entity_counter}"
+        designative_name_customer_id = f"designative_name_customer_{entity_counter}"
+
+        part_aggregate_id = f"part_aggregate_{entity_counter}"
+        revenue_gap_id = f"revenue_gap_{entity_counter}"
+        measurement_ice_rev_gap_id = f"measurement_ice_rev_gap_{entity_counter}"
+        ibe_rev_gap_value_id = f"ibe_rev_gap_value_{entity_counter}"
+
+        revenue_gap_base_year_id = f"revenue_gap_base_year_{entity_counter}"
+        ibe_year_id = f"ibe_year_{entity_counter}"
+        temporal_interval_identifier_rgb_id = f"temporal_interval_identifier_rgb_{entity_counter}"
+        stasis_of_revenue_gap_id = f"stasis_of_revenue_gap_{entity_counter}"
+        business_process_id = f"business_process_{entity_counter}"
+
+        sub_business_unit_id = f"sub_business_unit_{entity_counter}"
+        ibe_sbu_id = f"ibe_sbu_{entity_counter}"
+        designative_name_sbu_id = f"designative_name_sbu_{entity_counter}"
+
+        aircraft_model_id = f"aircraft_model_{entity_counter}"
+        ibe_aircraft_model_id = f"ibe_aircraft_model_{entity_counter}"
+        artifact_identifier_aircraft_model_id = f"artifact_identifier_aircraft_model_{entity_counter}"
+
+        engine_model_id = f"engine_model_{entity_counter}"
+        ibe_engine_model_id = f"ibe_engine_model_{entity_counter}"
+        artifact_identifier_engine_model_id = f"artifact_identifier_engine_model_{entity_counter}"
+
+        part_model_id = f"part_model_{entity_counter}"
+        ibe_part_model_id = f"ibe_part_model_{entity_counter}"
+        artifact_identifier_part_model_id = f"artifact_identifier_part_model_{entity_counter}"
+
+        # Generate triplets
+        # Customer uses Part Aggregate
+        new_triplets.append((customer_id, 'uses', part_aggregate_id))
+        new_triplets.append((designative_name_customer_id, 'generically depends on', ibe_cust_id))
+        new_triplets.append((designative_name_customer_id, 'designates', customer_id))
+
+        # Part Aggregate bearer of Revenue Gap
+        new_triplets.append((part_aggregate_id, 'bearer of', revenue_gap_id))
+        new_triplets.append((part_aggregate_id, 'participates in', business_process_id))
+        new_triplets.append((revenue_gap_id, 'participates in', stasis_of_revenue_gap_id))
+        new_triplets.append((revenue_gap_id, 'is about', customer_id))
+
+        # Measurement of Revenue Gap
+        new_triplets.append((measurement_ice_rev_gap_id, 'is measurement of', revenue_gap_id))
+        new_triplets.append((measurement_ice_rev_gap_id, 'generically depends on', ibe_rev_gap_value_id))
+        new_triplets.append((ibe_rev_gap_value_id, 'uses measurement unit', 'United States Dollar'))
+
+        # Temporal Information
+        new_triplets.append((temporal_interval_identifier_rgb_id, 'designates', revenue_gap_base_year_id))
+        new_triplets.append((temporal_interval_identifier_rgb_id, 'generically depends on', ibe_year_id))
+        new_triplets.append((stasis_of_revenue_gap_id, 'occurs on', revenue_gap_base_year_id))
+
+        # Sub Business Unit
+        new_triplets.append((sub_business_unit_id, 'participates in', business_process_id))
+        new_triplets.append((designative_name_sbu_id, 'designates', sub_business_unit_id))
+        new_triplets.append((designative_name_sbu_id, 'generically depends on', ibe_sbu_id))
+
+        # Customer participates in Business Process
+        new_triplets.append((customer_id, 'participates in', business_process_id))
+
+        # Artifact Models prescribe Part Aggregate
+        new_triplets.append((aircraft_model_id, 'prescribes', part_aggregate_id))
+        new_triplets.append((engine_model_id, 'prescribes', part_aggregate_id))
+        new_triplets.append((part_model_id, 'prescribes', part_aggregate_id))
+
+        # Artifact Identifiers and IBEs
+        new_triplets.append((artifact_identifier_aircraft_model_id, 'generically depends on', ibe_aircraft_model_id))
+        new_triplets.append((artifact_identifier_aircraft_model_id, 'designates', aircraft_model_id))
+        new_triplets.append((artifact_identifier_engine_model_id, 'generically depends on', ibe_engine_model_id))
+        new_triplets.append((artifact_identifier_engine_model_id, 'designates', engine_model_id))
+        new_triplets.append((artifact_identifier_part_model_id, 'generically depends on', ibe_part_model_id))
+        new_triplets.append((artifact_identifier_part_model_id, 'designates', part_model_id))
+
+        # Literal Values
+        new_triplets.append((ibe_cust_id, 'has text value', operator))
+        new_triplets.append((ibe_rev_gap_value_id, 'has decimal value', revenue_gap))
+        new_triplets.append((ibe_year_id, 'has integer value', year))
+        new_triplets.append((ibe_aircraft_model_id, 'has text value', ac_platform))
+        new_triplets.append((ibe_sbu_id, 'has text value', bu))
+        new_triplets.append((ibe_engine_model_id, 'has text value', engine_master_series))
+        new_triplets.append((ibe_part_model_id, 'has text value', part_number))
+
+        # RDF Types
+        new_triplets.append((ibe_cust_id, 'rdf:type', 'Information Bearing Entity'))
+        new_triplets.append((designative_name_customer_id, 'rdf:type', 'Designative Information Content Entity'))
+        new_triplets.append((customer_id, 'rdf:type', 'Customer Organization'))
+        new_triplets.append((ibe_rev_gap_value_id, 'rdf:type', 'Information Bearing Entity'))
+        new_triplets.append((revenue_gap_id, 'rdf:type', 'Quality'))
+        new_triplets.append((measurement_ice_rev_gap_id, 'rdf:type', 'Ratio Measurement Information Content Entity'))
+        new_triplets.append(('United States Dollar', 'rdf:type', 'Measurement Unit of Currency'))
+        new_triplets.append((revenue_gap_base_year_id, 'rdf:type', 'Year'))
+        new_triplets.append((temporal_interval_identifier_rgb_id, 'rdf:type', 'Temporal Interval Identifier'))
+        new_triplets.append((ibe_year_id, 'rdf:type', 'Information Bearing Entity'))
+        new_triplets.append((stasis_of_revenue_gap_id, 'rdf:type', 'Stasis of Quality'))
+        new_triplets.append((sub_business_unit_id, 'rdf:type', 'Commercial Organization'))
+        new_triplets.append((designative_name_sbu_id, 'rdf:type', 'Designative Information Content Entity'))
+        new_triplets.append((ibe_sbu_id, 'rdf:type', 'Information Bearing Entity'))
+        new_triplets.append((business_process_id, 'rdf:type', 'Planned Act'))
+        new_triplets.append((aircraft_model_id, 'rdf:type', 'Artifact Model'))
+        new_triplets.append((ibe_aircraft_model_id, 'rdf:type', 'Information Bearing Entity'))
+        new_triplets.append((artifact_identifier_aircraft_model_id, 'rdf:type', 'Designative Information Content Entity'))
+        new_triplets.append((engine_model_id, 'rdf:type', 'Artifact Model'))
+        new_triplets.append((ibe_engine_model_id, 'rdf:type', 'Information Bearing Entity'))
+        new_triplets.append((artifact_identifier_engine_model_id, 'rdf:type', 'Designative Information Content Entity'))
+        new_triplets.append((part_model_id, 'rdf:type', 'Artifact Model'))
+        new_triplets.append((ibe_part_model_id, 'rdf:type', 'Information Bearing Entity'))
+        new_triplets.append((artifact_identifier_part_model_id, 'rdf:type', 'Designative Information Content Entity'))
+        new_triplets.append((part_aggregate_id, 'rdf:type', 'Object Aggregate'))
+
+        # Increment the counter
+        entity_counter += 1
+
+    return new_triplets
+
+def write_triplets_to_csv(triplets, filename):
+    """Writes triplets to a CSV file."""
+    with open(filename, 'w', encoding='utf-8', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['Subject', 'Predicate', 'Object'])
+        for triplet in triplets:
+            writer.writerow(triplet)
+
+def main():
+    # Read base triplets
+    base_triplets = read_base_triplets('output_triplets_cu.csv')
+
+    # Read individuals data
+    individuals_data = read_individuals_data('Data_Anzo.csv')
+
+    # Generate new triplets
+    # Assuming the base entities end with index 1, so new entities start from 2
+    new_triplets = generate_new_triplets(individuals_data, starting_index=2)
+
+    # Combine base triplets with new triplets
+    combined_triplets = base_triplets + new_triplets
+
+    # Write combined triplets to a new CSV file
+    write_triplets_to_csv(combined_triplets, 'combined_triplets_pnc1.csv')
+
+if __name__ == '__main__':
+    main()
+
+
+
+===========
+
