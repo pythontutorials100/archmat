@@ -1,1 +1,186 @@
+query = """
+PREFIX : <http://api.stardog.com/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?customer_name (ROUND(SUM(?revenue_gap_value) * 1000) / 1000 AS ?total_revenue_gap)
+WHERE {
+  # Retrieve the IBE that contains the customer name
+  ?ibe_cust :has_text_value ?customer_name .
+  ?designative_name_customer :generically_depends_on ?ibe_cust .
+  ?designative_name_customer :designates ?customer .
+  ?customer rdf:type :Customer_Organization .
+
+  # Retrieve the revenue gap associated with the customer
+  ?revenue_gap :is_about ?customer .
+
+  # Retrieve the measurement of the revenue gap
+  ?measurement :is_measurement_of ?revenue_gap .
+  ?measurement :generically_depends_on ?ibe_rev_gap_value .
+
+  # Get the revenue gap value
+  ?ibe_rev_gap_value :has_decimal_value ?revenue_gap_value_literal .
+  BIND(xsd:decimal(?revenue_gap_value_literal) AS ?revenue_gap_value)
+}
+GROUP BY ?customer_name
+ORDER BY DESC(?total_revenue_gap)
+"""
+
+##################
+with stardog.Connection('your_database_name', **conn_details) as conn:
+    results = conn.select(query)
+
+###################
+
+data = json.loads(results)
+
+# Extract variables
+variables = data['head']['vars']
+
+# Extract bindings
+bindings = data['results']['bindings']
+
+# Convert bindings to a list of rows
+rows = []
+for binding in bindings:
+    row = {}
+    for var in variables:
+        if var in binding:
+            value = binding[var]['value']
+            # Convert numerical values appropriately
+            if binding[var]['type'] == 'literal' and 'datatype' in binding[var]:
+                datatype = binding[var]['datatype']
+                if datatype == 'http://www.w3.org/2001/XMLSchema#decimal':
+                    value = float(value)
+            row[var] = value
+        else:
+            row[var] = None
+    rows.append(row)
+
+# Create DataFrame
+df = pd.DataFrame(rows)
+
+
+####################################
+
+df['total_revenue_gap'] = pd.to_numeric(df['total_revenue_gap'])
+
+
+###############################
+
+# Optionally, select the top N customers
+top_n = 10
+df_top = df.head(top_n)
+
+# Plotting
+plt.figure(figsize=(12, 8))
+plt.barh(df_top['customer_name'], df_top['total_revenue_gap'], color='skyblue')
+plt.xlabel('Total Revenue Gap')
+plt.ylabel('Customer Name')
+plt.title('Top 10 Customers by Total Revenue Gap')
+plt.gca().invert_yaxis()  # Highest values at the top
+plt.tight_layout()
+plt.show()
+
+
+##################################
+
+import stardog
+import pandas as pd
+import matplotlib.pyplot as plt
+import json
+
+# Connection details
+conn_details = {
+    'endpoint': 'http://localhost:5820',  # Replace with your Stardog endpoint
+    'username': 'admin',                  # Replace with your Stardog username
+    'password': 'admin'                   # Replace with your Stardog password
+}
+
+# SPARQL query
+query = """
+PREFIX : <http://api.stardog.com/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?customer_name (ROUND(SUM(?revenue_gap_value) * 1000) / 1000 AS ?total_revenue_gap)
+WHERE {
+  # Retrieve the IBE that contains the customer name
+  ?ibe_cust :has_text_value ?customer_name .
+  ?designative_name_customer :generically_depends_on ?ibe_cust .
+  ?designative_name_customer :designates ?customer .
+  ?customer rdf:type :Customer_Organization .
+
+  # Retrieve the revenue gap associated with the customer
+  ?revenue_gap :is_about ?customer .
+
+  # Retrieve the measurement of the revenue gap
+  ?measurement :is_measurement_of ?revenue_gap .
+  ?measurement :generically_depends_on ?ibe_rev_gap_value .
+
+  # Get the revenue gap value
+  ?ibe_rev_gap_value :has_decimal_value ?revenue_gap_value_literal .
+  BIND(xsd:decimal(?revenue_gap_value_literal) AS ?revenue_gap_value)
+}
+GROUP BY ?customer_name
+ORDER BY DESC(?total_revenue_gap)
+"""
+
+# Execute query and get results
+with stardog.Connection('your_database_name', **conn_details) as conn:
+    results = conn.select(query)
+
+# Parse results
+data = json.loads(results)
+variables = data['head']['vars']
+bindings = data['results']['bindings']
+rows = []
+
+for binding in bindings:
+    row = {}
+    for var in variables:
+        if var in binding:
+            value = binding[var]['value']
+            # Convert to numeric if necessary
+            if binding[var]['type'] == 'literal' and 'datatype' in binding[var]:
+                datatype = binding[var]['datatype']
+                if datatype == 'http://www.w3.org/2001/XMLSchema#decimal':
+                    value = float(value)
+            row[var] = value
+        else:
+            row[var] = None
+    rows.append(row)
+
+# Create DataFrame
+df = pd.DataFrame(rows)
+df['total_revenue_gap'] = pd.to_numeric(df['total_revenue_gap'])
+
+# Plotting
+top_n = 10
+df_top = df.head(top_n)
+
+plt.figure(figsize=(12, 8))
+plt.barh(df_top['customer_name'], df_top['total_revenue_gap'], color='skyblue')
+plt.xlabel('Total Revenue Gap')
+plt.ylabel('Customer Name')
+plt.title('Top 10 Customers by Total Revenue Gap')
+plt.gca().invert_yaxis()
+plt.tight_layout()
+plt.show()
+
+
+####################################
+
+
+# Adding value labels
+for index, value in enumerate(df_top['total_revenue_gap']):
+    plt.text(value, index, str(value))
+
+# Adjusting font sizes
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.xlabel('Total Revenue Gap', fontsize=14)
+plt.ylabel('Customer Name', fontsize=14)
+plt.title('Top 10 Customers by Total Revenue Gap', fontsize=16)
+
+
+######################################
 
