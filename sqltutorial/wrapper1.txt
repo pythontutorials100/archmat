@@ -1,1 +1,41 @@
+# Use the results dict directly
+data = results
+
+# Extract variables
+variables = data['head']['vars']
+
+# Extract bindings
+bindings = data['results']['bindings']
+
+# Convert bindings to a list of rows
+rows = []
+for binding in bindings:
+    row = {}
+    for var in variables:
+        if var in binding:
+            value = binding[var]['value']
+            # Convert numerical values appropriately
+            if binding[var]['type'] == 'literal' and 'datatype' in binding[var]:
+                datatype = binding[var]['datatype']
+                if datatype in (
+                    'http://www.w3.org/2001/XMLSchema#decimal',
+                    'http://www.w3.org/2001/XMLSchema#float',
+                    'http://www.w3.org/2001/XMLSchema#double',
+                    'http://www.w3.org/2001/XMLSchema#integer',
+                    'http://www.w3.org/2001/XMLSchema#int',
+                ):
+                    value = float(value)
+            row[var] = value
+        else:
+            row[var] = None
+    rows.append(row)
+
+# Create DataFrame
+df = pd.DataFrame(rows)
+
+# Convert 'total_revenue_gap' to numeric
+df['total_revenue_gap'] = pd.to_numeric(df['total_revenue_gap'])
+
+# Display the DataFrame
+df.head()
 
