@@ -1,1 +1,116 @@
 
+Cell 1: Plot All Data with Improved Aesthetics
+
+python
+
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+
+# Use all data
+df_top = df.copy()
+
+# Sort data by 'total_revenue_gap' in descending order
+df_top = df_top.sort_values('total_revenue_gap', ascending=False)
+
+# Set figure size based on the number of entries
+plt.figure(figsize=(12, len(df_top) * 0.4))  # Adjust the multiplier as needed
+
+# Create a horizontal bar chart
+bars = plt.barh(df_top['customer_name'], df_top['total_revenue_gap'], color='skyblue')
+
+# Format the x-axis numbers with $ sign and commas
+def format_currency(x, pos):
+    return '${:,.0f}'.format(x)
+
+formatter = ticker.FuncFormatter(format_currency)
+plt.gca().xaxis.set_major_formatter(formatter)
+
+# Add labels and title
+plt.xlabel('Total Revenue Gap', fontsize=14)
+plt.ylabel('Customer Name', fontsize=14)
+plt.title('Total Revenue Gap per Customer', fontsize=16)
+
+# Adjust y-axis labels to prevent overlapping
+plt.yticks(fontsize=10)
+
+# Invert the y-axis to have the highest values at the top
+plt.gca().invert_yaxis()
+
+# Adjust layout to prevent label cutoff
+plt.tight_layout()
+
+# Show the plot
+plt.show()
+
+Explanation:
+
+    Plot All Data: We use df_top = df.copy() to include all data in the plot.
+    Adjust Figure Size: We adjust the figure height based on the number of entries to prevent overcrowding.
+    Prevent Text Overlapping: By adjusting fontsize and figure size, we minimize overlapping labels.
+    Axis Labels: Customer names are on the vertical axis (y-axis), and revenue gaps are on the horizontal axis (x-axis).
+    Number Formatting: We format the x-axis numbers as currency with $ sign and commas using matplotlib.ticker.FuncFormatter.
+
+2. Modify Visual Elements
+
+To further improve the aesthetics, let's make additional adjustments.
+Cell 2: Enhance Visual Elements
+
+python
+
+# Continue from previous code
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import numpy as np
+
+# Use all data
+df_top = df.copy()
+
+# Sort data
+df_top = df_top.sort_values('total_revenue_gap', ascending=False)
+
+# Set figure size
+plt.figure(figsize=(12, len(df_top) * 0.5))
+
+# Create horizontal bar chart
+bars = plt.barh(df_top['customer_name'], df_top['total_revenue_gap'], color='skyblue')
+
+# Format x-axis with currency
+formatter = ticker.FuncFormatter(format_currency)
+plt.gca().xaxis.set_major_formatter(formatter)
+
+# Add data labels to each bar (optional, may be cluttered with many entries)
+for bar in bars:
+    width = bar.get_width()
+    if width > 0:
+        plt.text(width, bar.get_y() + bar.get_height()/2,
+                 f' ${width:,.0f}', va='center', ha='left', fontsize=8)
+
+# Adjust labels and title
+plt.xlabel('Total Revenue Gap', fontsize=14)
+plt.ylabel('Customer Name', fontsize=14)
+plt.title('Total Revenue Gap per Customer', fontsize=16)
+
+# Adjust y-ticks
+plt.yticks(fontsize=10)
+
+# Invert y-axis
+plt.gca().invert_yaxis()
+
+# Remove frame lines (spines) for a cleaner look
+for spine in ['top', 'right']:
+    plt.gca().spines[spine].set_visible(False)
+
+# Add grid lines
+plt.grid(axis='x', linestyle='--', alpha=0.7)
+
+# Adjust layout
+plt.tight_layout()
+
+# Show plot
+plt.show()
+
+Notes:
+
+    Data Labels: Adding data labels for all entries may clutter the plot. You can remove or adjust them as needed.
+    Grid Lines: Adding grid lines can help in reading values.
+    Spines: Removing the top and right spines can make the plot look cleaner.
