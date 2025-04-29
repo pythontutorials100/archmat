@@ -1,1 +1,56 @@
-
+Your Custom Skill,Potential Lightcast Skill(s),Potential Lightcast Category (Family),Notes
+"DESIGN & ANALYSIS RELATED",,,
+"1D Aerodynamic Modeling","Aerodynamics, Computational Fluid Dynamics (CFD), Modeling",Engineering,"Might map to broader Aerodynamics or specific CFD depending on Lightcast granularity."
+"AD and D/A Circuit Design","Circuit Design, Analog Circuit Design, Digital Circuit Design, Mixed-Signal Integrated Circuits",Engineering,"""Mixed-Signal..."" is often a specific skill."
+"Actuation & Mechanisms","Mechanical Engineering, Actuation, Mechanism Design",Engineering,
+"Advanced System/Software/Data Architecture","System Architecture, Software Architecture, Data Architecture","Engineering / Information Technology","May map to one or multiple depending on focus."
+Aeroacoustics,"Acoustics, Aerodynamics, Noise Control","Engineering / Physics",
+Aerodynamics,Aerodynamics,Engineering,"Direct match likely."
+"Aircraft System Integration","Systems Integration, Aerospace Engineering",Engineering,
+"Algorithms and data structures","Data Structures, Algorithms","Information Technology / Engineering","Common IT/CS skills."
+"Analog Circuit Simulation and Analysis","Circuit Simulation (SPICE), Analog Circuit Design",Engineering,"SPICE is a common specific skill."
+"Finite Element Analysis - Ansys","ANSYS (Software), Finite Element Analysis (FEA)",Engineering,"Maps to both the tool and the technique."
+"Structural Design","Structural Engineering, Mechanical Design",Engineering,
+"MANUFACTURING & MATERIALS RELATED",,,
+"Ablative Coatings","Coatings, Material Science, Aerospace Materials","Engineering / Manufacturing",
+"Additive Manufacturing","Additive Manufacturing, 3D Printing","Engineering / Manufacturing","Direct match likely."
+"Adhesives, Coatings, Paints for Electronic Optics","Adhesives, Coatings, Material Science, Optical Engineering","Engineering / Manufacturing","Multiple concepts involved."
+"AM Materials","Material Science, Additive Manufacturing, Metallurgy, Polymers","Engineering / Manufacturing","Depends on the specific AM material type."
+Etching,"Etching, Semiconductor Manufacturing, Surface Treatment","Manufacturing / Engineering","Context (semiconductor vs. metal) matters."
+"Fabrication Methods","Fabrication, Manufacturing Processes","Manufacturing / Engineering","Broad term, maps to general skills."
+"Manual Lay-Up Methods","Composite Materials, Manufacturing Processes","Manufacturing / Engineering","Specific to composites."
+"Material Development, Selection & Characterization","Material Science, Material Selection, Material Characterization","Engineering / Material Science","Likely maps to these core skills."
+"Printed Circuit Board (PCB) Layout","PCB Design, Electronic Design Automation (EDA)",Engineering,
+"Pre-Impregnation Manufacturing Methods","Composite Materials, Manufacturing Processes","Manufacturing / Engineering","Relates to prepregs in composites."
+"Surface Preparation","Surface Treatment, Manufacturing Processes, Coatings","Manufacturing / Engineering",
+"SOFTWARE, DATA & AI RELATED",,,
+"Abstract Data Types","Data Structures, Software Engineering, Computer Science","Information Technology","Foundational CS concept."
+Ada,"Ada (Programming Language)","Information Technology","Direct match."
+"Adversarial AI","Artificial Intelligence (AI), Machine Learning (ML), Cybersecurity","Information Technology / Engineering","Specific AI/Security niche."
+"AI LLM Based Dev Tools","Artificial Intelligence (AI), Large Language Models (LLMs), Software Development Tools","Information Technology","Emerging skill area."
+"Algorithms Low BW Arch / High BW Arch","Algorithm Design, System Architecture, Embedded Systems","Information Technology / Engineering","Specific architectural consideration."
+"Data Management (Databricks, Snowflake)","Databricks, Snowflake (Software), Data Management, Big Data","Information Technology","Maps to specific platforms and general concept."
+"Data Science & Analytics","Data Science, Data Analysis, Statistical Analysis","Information Technology / Business","Direct match likely."
+"Deep Learning tools and frameworks (TensorFlow, Caffe2, etc.)","TensorFlow, PyTorch, Deep Learning, Machine Learning","Information Technology","Maps to specific frameworks and the technique."
+Python,"Python (Programming Language)","Information Technology","Direct match."
+"TESTING, RELIABILITY & SAFETY RELATED",,,
+"Accelerated Stress Testing (ALT, HALT, RET)","Reliability Engineering, Environmental Testing, Stress Testing","Engineering / Quality","HALT/HASS might be specific Lightcast skills."
+"Accident, Incident, or Safety Event Investigation","Safety Engineering, Incident Investigation, Root Cause Analysis","Engineering / Safety / Quality",
+"ESD Testing","Electrostatic Discharge (ESD), Environmental Testing, Electronics Testing","Engineering / Quality",
+"Failure Modes and Effects Analysis (FMEA/MES/FMECA)","Failure Modes and Effects Analysis (FMEA), Reliability Engineering, Risk Management","Engineering / Quality","FMEA is a standard skill."
+"Failure Reporting, Analysis, and Corrective Action System (FRACAS)","FRACAS, Reliability Engineering, Quality Management Systems","Engineering / Quality","FRACAS might be a specific skill."
+"Fatigue Testing and Validation","Material Testing, Fatigue Analysis, Mechanical Testing, Validation","Engineering / Quality",
+"Maintainability Demonstration/Testing","Maintainability, Reliability Engineering, Testing","Engineering / Quality",
+"Product Security Evaluation","Cybersecurity, Product Security, Vulnerability Assessment","Information Technology / Engineering",
+"Reliability Assessment","Reliability Engineering, Statistical Analysis","Engineering / Quality",
+"SYSTEMS, PROCESS & MANAGEMENT RELATED",,,
+"Agile Methodologies","Agile Methodologies, Project Management","Business / Project Management / IT","Direct match likely."
+"Airworthiness Authority/Customer Coordination","Airworthiness, Regulatory Compliance, Aerospace Engineering, Customer Relations","Engineering / Compliance / Business","Multi-faceted skill."
+"Configuration Architecture","Configuration Management, System Architecture","Engineering / Information Technology",
+"Design for Reliability","Design for Reliability (DfR), Reliability Engineering","Engineering / Quality","DfR is often a specific skill."
+"Export Control Compliance and Integration for Electronic Components","Export Compliance, International Trade Compliance, Regulatory Compliance","Compliance / Legal / Engineering","Specific compliance area."
+"MBSE (Model-based Systems Engineering)","Model-Based Systems Engineering (MBSE), Systems Engineering, SysML",Engineering,"MBSE is a standard skill."
+"Product Lifecycle Management (PLM) Systems","Product Lifecycle Management (PLM) Software, Data Management","Engineering / Manufacturing / IT","PLM is standard."
+"Requirements Allocation / Derivation / Management","Requirements Management, Systems Engineering","Engineering / Project Management","Core Systems Engineering skills."
+"Supplier Management & Oversight","Supplier Management, Supply Chain Management, Quality Auditing","Business / Supply Chain / Quality",
+"Systems Thinking",Systems Thinking,"Business / Engineering / Leadership","Often categorized as a soft/conceptual skill."
