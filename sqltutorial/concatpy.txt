@@ -1,1 +1,19 @@
+Thank you for this valuable feedback. I understand the concern about potential confusion between skills held by employees within the formal Engineering departments versus those in dedicated Quality, Compliance, or Manufacturing Operations functions. The goal is indeed to capture the engineering capabilities within our workforce.
 
+However, in a complex environment like aerospace manufacturing, the lines aren't always rigidly defined by departmental boundaries, but rather by the nature of the skills applied. Here’s why including categories related to these areas, focused on the engineering aspects, is crucial:
+
+    Engineering's Intrinsic Role: Engineers play a fundamental role within these domains. For example:
+
+        Manufacturing: Skills like 'Design for Manufacturability (DFM/DFA)', 'Manufacturing Process Development', 'Tooling Design', 'Factory Automation & Robotics', and 'Troubleshooting Production Issues' are core engineering activities, even if they directly support the Manufacturing function. Manufacturing Engineers, Industrial Engineers, and even Design Engineers require these skills.
+
+        Quality: Engineers are heavily involved in 'Failure Modes and Effects Analysis (FMEA)', 'Root Cause Analysis', 'Reliability Analysis & Testing', 'Developing Inspection Methods', and 'Statistical Process Control (SPC) Implementation'. These are analytical and problem-solving skills rooted in engineering principles, often performed by Quality Engineers, Reliability Engineers, or Systems Engineers.
+
+        Compliance & Safety: Skills like 'Designing for Airworthiness Standards', 'System Safety Analysis (e.g., FTA, FHA)', 'Export Control Compliance for Technical Data', and 'Materials of Concern (MOC) Analysis' require deep engineering knowledge to interpret standards and implement compliant designs. Systems Engineers, Safety Engineers, and Design Engineers are key players here.
+
+    Skill-Based, Not Department-Based: The aim of this tool is to catalogue the skills our employees possess and apply in their roles, particularly those requiring technical or engineering expertise. Many roles, especially those bridging design and production (like Manufacturing Engineers or Test Engineers), require a blend of skills that touch upon these areas from an engineering perspective.
+
+    Avoiding Artificial Gaps: Creating categories that are strictly exclusive to traditional "design engineering" might inadvertently exclude critical engineering skills needed for product realization, sustainment, and safety. It could create an incomplete picture of our engineering talent, especially in areas like production support, field reliability, and process improvement which heavily rely on engineering input.
+
+    Clarity through Definition: Perhaps the best approach isn't exclusion, but clarification. We can refine the descriptions for categories and subcategories within areas like Manufacturing, Quality/Reliability, and Systems/Process to emphasize the engineering contribution. For instance, instead of just "Quality Management," a subcategory could be "Engineering Analysis for Quality Assurance" encompassing skills like FMEA and Root Cause Analysis from an engineering viewpoint.
+
+In summary, while dedicated non-engineering functions exist, engineers contribute vital, specific engineering skills within those broader Quality, Compliance, and Manufacturing contexts. Our skills taxonomy aims to capture this engineering contribution accurately. We can certainly work on refining the category/skill descriptions to ensure they clearly target the engineering aspects and minimize confusion for users across different functions."
