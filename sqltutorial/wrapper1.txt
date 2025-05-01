@@ -1,1 +1,117 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.16 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" version="26.0.16" pages="2">
+  <diagram name="Page-1" id="rv8i4FzgKS0hy5W-lOBK">
+    <mxGraphModel dx="2311" dy="823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="upsoBuVHbps5GaeP50AI-2" value="skill" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="340" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-21" value="participates in" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-5" target="upsoBuVHbps5GaeP50AI-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-24" value="member of" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-5" target="upsoBuVHbps5GaeP50AI-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-25" value="uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-5" target="upsoBuVHbps5GaeP50AI-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-26" value="works on" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-5" target="upsoBuVHbps5GaeP50AI-10" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="425" />
+              <mxPoint x="250" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-27" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;&lt;span class=&quot;inline-code ng-star-inserted&quot;&gt;hasCredential&lt;/span&gt;&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-5" target="upsoBuVHbps5GaeP50AI-23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-5" value="Person" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="570" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-6" value="Organizational Unit" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="720" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-7" value="Tool" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-8" value="Software Tool" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="220" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-9" value="Hardware Tool" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="350" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-10" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;WorkItem&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="60" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-11" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;Product&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-130" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-12" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;Project&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1050" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-13" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;Service&amp;nbsp;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-130" y="480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-14" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;Activity&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="810" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-16" value="Location" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="800" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-18" value="role of" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-17" target="upsoBuVHbps5GaeP50AI-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-28" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;&lt;span class=&quot;inline-code ng-star-inserted&quot;&gt;requiresSkill&lt;/span&gt;&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-17" target="upsoBuVHbps5GaeP50AI-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-29" value="requires" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-17" target="upsoBuVHbps5GaeP50AI-23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-30" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;&lt;span class=&quot;inline-code ng-star-inserted&quot;&gt;involvesActivity&lt;/span&gt;&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-17" target="upsoBuVHbps5GaeP50AI-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-31" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;&lt;span class=&quot;inline-code ng-star-inserted&quot;&gt;partOf&lt;/span&gt;&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-17" target="upsoBuVHbps5GaeP50AI-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-32" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;&lt;span class=&quot;inline-code ng-star-inserted&quot;&gt;associatedWorkItem&lt;/span&gt;&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-17" target="upsoBuVHbps5GaeP50AI-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-17" value="role" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="540" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-20" value="disposition of" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="upsoBuVHbps5GaeP50AI-2" target="upsoBuVHbps5GaeP50AI-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="upsoBuVHbps5GaeP50AI-23" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;Credential&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nceKLHTivVFa1Pv_Fw5E-1" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;InformationContentEntity&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="410" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nceKLHTivVFa1Pv_Fw5E-2" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;Task&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1050" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nceKLHTivVFa1Pv_Fw5E-3" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;MaterialProduct&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-300" y="610" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nceKLHTivVFa1Pv_Fw5E-4" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;SoftwareProduct&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-300" y="680" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nceKLHTivVFa1Pv_Fw5E-5" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3116539523-0&quot;&gt;ProficiencyLevel&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="960" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="CLUxxrlTQRD7_w9YdACD" name="Page-2">
+    <mxGraphModel dx="1461" dy="823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
 
