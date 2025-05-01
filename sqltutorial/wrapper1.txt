@@ -1,95 +1,10 @@
-Okay, here are the key points distilled into a slide-friendly format:
-
-Slide 1: Title
-
-    Aerospace Ontology Hub (Gatsby Version)
-
-    Your User-Friendly Gateway to Semantic Assets
-
-Slide 2: Vision & Purpose
-
-    Goal: Central portal to Discover, Understand, Document & Use company ontologies.
-
-    Value-Add Layer: Sits on top of the internal MOBI ontology repository.
-
-    Key Functions:
-
-        Improve Ontology Discoverability (beyond raw files).
-
-        Provide Context: Company-specific docs, usage, examples.
-
-        Show Governance: Status, versions, contacts.
-
-        Highlight Applications: Showcase project usage.
-
-        Centralize Learning: Articles, tutorials, patterns (Key Focus).
-
-        Connect People: Visibility into teams & projects.
-
-    Bridge: Connects technical MOBI repo with end-users (Engineers, Data Scientists, etc.).
-
-Slide 3: Core Architecture (Gatsby + Strapi + MOBI API)
-
-    Internal MOBI API:
-
-        Role: Authoritative source for ontology files (OWL, TTL) & core metadata (IRI, version).
-
-        Interaction: Provides API for lists, details, download links.
-
-    Strapi CMS:
-
-        Role: Backend for all contextual & narrative content (docs, projects, status, articles, tutorials, team info).
-
-        Interaction: Managed via Admin UI; provides content API (REST/GraphQL).
-
-    Gatsby Frontend:
-
-        Role: Fast, static user-facing website (React, Tailwind).
-
-        Interaction:
-
-            Build Time: Fetches data from both MOBI API & Strapi API via source plugins.
-
-            Build Time: Merges data using GraphQL data layer.
-
-            Build Time: Generates static HTML pages for high performance.
-
-            User Experience: Delivers pre-built pages instantly.
-
-Slide 4: Key Content & Features
-
-    Ontology Hub:
-
-        Foundational & Domain Ontology listings & details.
-
-        Search & Filtering capabilities.
-
-        Combines MOBI data (core facts, download) with Strapi data (docs, usage, status).
-
-    Project Showcase:
-
-        See how ontologies are used in real projects.
-
-        Managed via Strapi (details, teams, ontologies used).
-
-    Resource Center (Crucial):
-
-        Articles, Tutorials, Modeling Patterns, Use Cases.
-
-        Central place for learning & best practices (Managed in Strapi).
-
-    Other: Direct link to MOBI Catalog, Team Directory, Contact Info.
-
-Slide 5: Why Gatsby + Strapi?
-
-    Performance: Gatsby's Static Site Generation (SSG) = Extremely fast load times.
-
-    Content Management: Strapi provides an easy UI for non-developers to manage rich context, docs, articles, tutorials.
-
-    Data Aggregation: Gatsby excels at pulling data from multiple sources (MOBI API, Strapi API) at build time via GraphQL.
-
-    Developer Experience: Clear separation of concerns; robust tooling (React, GraphQL, Plugins).
-
-    Single Source of Truth (Layered): MOBI for ontologies, Strapi for context, Gatsby Hub for presentation.
-
-    Tailored: Built specifically for internal needs and integration with MOBI.
+Org,Standards / Technologies,Maturity Level
+RTX,"BFO, CCO, REO, IOF-Core, SHACL, OSLC",Active
+Airbus,"IOF-Core, BFO, ISO 81346, SysML v2",Adopt / Active
+NASA,"ATMONTO, BFO, RDF/OWL, SysML v2, Graphs",Active / Trial
+Boeing,"RDF/OWL, BFO, OSLC, MTConnect",Adopt / Trial
+Lockheed,"BFO, CCO, RDF, OSLC, MBSE integrations",Adopt / Trial
+Rolls-Royce,"ISO 15926, MTConnect, IOF (Trial), BFO (Aware)",Trial / Assess
+TotalEnergies,"ISO 15926, BFO, IOF, RDF/SPARQL",Adopt / Trial
+BAE Systems,"BFO, MoSSEC, MBSE tools",Assess / Adopt
+DHS,"DHS Core Ontology, BFO, CCO, RDF/Graphs, NIEM",Adopt / Trial
