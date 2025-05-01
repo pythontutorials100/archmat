@@ -1,10 +1,1 @@
-Org,Standards / Technologies,Maturity Level
-RTX,"BFO, CCO, REO, IOF-Core, SHACL, OSLC",Active
-Airbus,"IOF-Core, BFO, ISO 81346, SysML v2",Adopt / Active
-NASA,"ATMONTO, BFO, RDF/OWL, SysML v2, Graphs",Active / Trial
-Boeing,"RDF/OWL, BFO, OSLC, MTConnect",Adopt / Trial
-Lockheed,"BFO, CCO, RDF, OSLC, MBSE integrations",Adopt / Trial
-Rolls-Royce,"ISO 15926, MTConnect, IOF (Trial), BFO (Aware)",Trial / Assess
-TotalEnergies,"ISO 15926, BFO, IOF, RDF/SPARQL",Adopt / Trial
-BAE Systems,"BFO, MoSSEC, MBSE tools",Assess / Adopt
-DHS,"DHS Core Ontology, BFO, CCO, RDF/Graphs, NIEM",Adopt / Trial
+
